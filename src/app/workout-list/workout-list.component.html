@@ -1,0 +1,52 @@
+<div class="p-6 bg-opacity-10 rounded-lg border border-white border-opacity-1 shadow-custom ">
+  <!-- Search and Filter -->
+  <div class="flex gap-4 mb-6">
+    <input type="text" placeholder="Search by name" [(ngModel)]="searchName" (input)="filterWorkouts()"
+      class="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <select [(ngModel)]="filterType" (change)="filterWorkouts()"
+      class="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option value="">All</option>
+      <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+
+  <!-- Workouts Table -->
+  <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+    <table *ngIf="filteredWorkouts.length > 0" class="min-w-full text-sm text-left text-gray-500">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-200 border-b">
+        <tr>
+          <th class="py-3 px-4">Name</th>
+          <th class="py-3 px-4">Workout Type</th>
+          <th class="py-3 px-4">Number of Workouts</th>
+          <th class="py-3 px-4">Minutes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let workout of paginatedWorkouts" class="border-t">
+          <td class="py-3 px-4">{{ workout.name }}</td>
+          <td class="py-3 px-4">{{ workout.displayTypes }}</td>
+          <td class="py-3 px-4">{{ workout.workouts.length }}</td>
+          <td class="py-3 px-4">{{ workout.displayMinutes }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="filteredWorkouts.length === 0" class="text-center text-gray-500 py-4">
+      No data found
+    </div>
+  </div>
+
+  <!--  Chart Button -->
+  <button (click)="openModal()"
+    class="mt-6 px-5 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+    Show Chart
+  </button>
+
+  <!-- Workout Modal -->
+  <app-workout-modal [users]="workouts" [showModal]="showModal"
+    (closeModalEvent)="closeModal($event)"></app-workout-modal>
+
+  <!-- Pagination -->
+  <app-pagination [totalItems]="filteredWorkouts.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+    (pageChanged)="onPageChanged($event)" (itemsPerPageChanged)="onItemsPerPageChanged($event)" class="mt-6">
+  </app-pagination>
+</div>

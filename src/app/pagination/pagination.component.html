@@ -1,0 +1,20 @@
+<div class="flex flex-col md:flex-row justify-center items-center my-4">
+  <div class="flex items-center mb-2 md:mb-0">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" class="px-2 py-1 mx-1 bg-gray-300 rounded text-sm md:text-base">
+      Previous
+    </button>
+    <span class="px-2 py-1 mx-1 text-white text-sm md:text-base">{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages" class="px-2 py-1 mx-1 bg-blue-400 rounded text-sm md:text-base">
+      Next
+    </button>
+  </div>
+  
+  <div class="flex items-center ml-0 md:ml-8">
+    <label class="text-white text-sm md:text-base">Items Per page:</label>
+    <select (change)="changeItemsPerPage($event)" class="ml-2 px-2 py-1 bg-white border rounded-md text-sm md:text-base">
+      <option [value]="5" [selected]="itemsPerPage === 5">5</option>
+      <option [value]="10" [selected]="itemsPerPage === 10">10</option>
+      <option [value]="15" [selected]="itemsPerPage === 15">15</option>
+    </select>
+  </div>
+</div>

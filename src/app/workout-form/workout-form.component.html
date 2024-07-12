@@ -1,0 +1,22 @@
+<div class="p-4 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-1 shadow-custom backdrop-blur-sm mb-2">
+  <div>
+  <form (ngSubmit)="addWorkout()">
+    <div class="mb-4">
+      <label for="name" class="block text-white">User Name:</label>
+      <input type="text" id="name" [(ngModel)]="userName" name="name" class="border p-2  w-full rounded-sm">
+    </div>
+    <div class="mb-4">
+      <label for="workoutType" class="block text-white">Workout Type:</label>
+      <select id="workoutType" [(ngModel)]="workoutType" name="workoutType" class="border p-2 w-full rounded-sm">
+        <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="mb-4">
+      <label for="minutes" class="block text-white">Workout Minutes:</label>
+      <input type="number" id="minutes" [(ngModel)]="workoutMinutes" name="minutes" class="border p-2 w-full rounded-sm">
+    </div>
+    <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700">Add Workout +</button>
+  </form>
+</div>
+  
+</div>

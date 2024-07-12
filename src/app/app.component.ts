@@ -1,13 +1,23 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { WorkoutFormComponent } from './workout-form/workout-form.component';
+import { WorkoutListComponent } from './workout-list/workout-list.component';
+import { WorkoutChartComponent } from './workout-chart/workout-chart.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule, WorkoutFormComponent, WorkoutListComponent, WorkoutChartComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'health-challenge-tracker';
+  isLoading: boolean = true; 
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000); 
+  }
 }

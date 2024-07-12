@@ -1,0 +1,54 @@
+<div *ngIf="showModal" class="fixed inset-0 z-50 ">
+  <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
+
+    <div class="relative inline-block bg-white rounded-lg shadow-xl transform transition-all sm:my-8  w-[950px]">
+      <div class="p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row">
+          <!-- Hamburger Menu for Mobile -->
+          <div class="sm:hidden">
+            <button (click)="toggleSidebar()" class="text-gray-500 focus:outline-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            <div [ngClass]="{'block': isSidebarOpen, 'hidden': !isSidebarOpen}" class="fixed inset-0 z-40 bg-white border-r border-gray-200 sm:hidden overflow-y-auto">
+              <div class="flex flex-col p-4">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Users</h3>
+                <ul class="divide-y divide-gray-200">
+                  <li *ngFor="let user of users" (click)="selectUser(user)" class="cursor-pointer py-2 px-4 hover:bg-gray-100">
+                    {{ user.name }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar for Desktop -->
+          <div class="hidden sm:block w-full sm:w-1/4 border-r border-gray-200 h-[400px] overflow-y-auto">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Users</h3>
+            <ul class="divide-y divide-gray-200">
+              <li *ngFor="let user of users" (click)="selectUser(user)" class="cursor-pointer py-2 px-4 hover:bg-gray-100">
+                {{ user.name }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="w-full sm:w-3/4 pl-0 sm:pl-4 mt-4 sm:mt-0">
+            <h3 class="text-lg font-semibold text-gray-900 text-center">{{ selectedUser?.name }} Workout Progress</h3>
+            <div class="mt-4">
+              <div class="chart-container">
+                <canvas id="userWorkoutChart" class="w-full h-64"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button type="button" class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-white text-base font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:w-auto sm:text-sm" (click)="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

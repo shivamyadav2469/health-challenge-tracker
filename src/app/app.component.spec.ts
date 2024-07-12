@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -20,10 +20,12 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('health-challenge-tracker');
   });
 
-  it('should render title', () => {
+  it('should render title', fakeAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
+    tick(2000); 
+    fixture.detectChanges(); 
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, health-challenge-tracker');
-  });
+    expect(compiled.querySelector('h1')?.textContent).toContain('Health Challenge Tracker');
+  }));
 });
