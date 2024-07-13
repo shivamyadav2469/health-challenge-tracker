@@ -5,6 +5,8 @@ import { WorkoutService } from '../workout.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { WorkoutModalComponent } from '../workout-modal/workout-modal.component';
 import { Subscription } from 'rxjs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface Workout {
   type: string;
@@ -18,16 +20,18 @@ interface User {
   displayTypes?: string;
   displayMinutes?: string;
   totalMinutes?: number;
+  completed?: boolean;
 }
 
 @Component({
   selector: 'app-workout-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, PaginationComponent, WorkoutModalComponent],
+  imports: [CommonModule, FormsModule, PaginationComponent, WorkoutModalComponent, FontAwesomeModule],
   templateUrl: './workout-list.component.html',
   styleUrls: ['./workout-list.component.css']
 })
 export class WorkoutListComponent implements OnInit, OnDestroy {
+  icon = faCircleCheck;
   workouts: User[] = [];
   filteredWorkouts: User[] = [];
   paginatedWorkouts: User[] = [];
@@ -87,6 +91,16 @@ export class WorkoutListComponent implements OnInit, OnDestroy {
 
   closeModal(event: any): void {
     this.showModal = false;
+  }
+
+  deleteUser(userName: string): void {
+    this.workoutService.deleteUser(userName);
+    this.filterWorkouts();
+  }
+
+  toggleCompletion(userName: string): void {
+    this.workoutService.toggleCompletion(userName);
+    this.filterWorkouts();
   }
 
   ngOnDestroy() {

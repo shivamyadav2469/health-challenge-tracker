@@ -10,6 +10,7 @@ interface User {
   id: number;
   name: string;
   workouts: Workout[];
+  completed?: boolean;
 }
 
 @Injectable({
@@ -56,6 +57,24 @@ export class WorkoutService {
       workouts.push(user);
     }
 
+    this.updateLocalStorage(workouts);
+  }
+
+  deleteUser(userName: string): void {
+    const workouts = this.getWorkouts().filter(user => user.name !== userName);
+    this.updateLocalStorage(workouts);
+  }
+
+  toggleCompletion(userName: string): void {
+    const workouts = this.getWorkouts();
+    const user = workouts.find(u => u.name === userName);
+    if (user) {
+      user.completed = !user.completed;
+    }
+    this.updateLocalStorage(workouts);
+  }
+
+  private updateLocalStorage(workouts: User[]) {
     localStorage.setItem(this.storageKey, JSON.stringify(workouts));
     this.workoutsSubject.next(workouts);
   }

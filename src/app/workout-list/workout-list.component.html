@@ -12,21 +12,33 @@
 
   <!-- Workouts Table -->
   <div class="bg-white rounded-lg shadow-md overflow-x-auto">
-    <table *ngIf="filteredWorkouts.length > 0" class="min-w-full text-sm text-left text-gray-500">
+    <table *ngIf="filteredWorkouts.length > 0" class="min-w-full text-sm text-left text-black">
       <thead class="text-xs text-gray-700 uppercase bg-gray-200 border-b">
         <tr>
           <th class="py-3 px-4">Name</th>
           <th class="py-3 px-4">Workout Type</th>
           <th class="py-3 px-4">Number of Workouts</th>
           <th class="py-3 px-4">Minutes</th>
+          <th class="py-3 px-4">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let workout of paginatedWorkouts" class="border-t">
+        <tr *ngFor="let workout of paginatedWorkouts" class="border-t" [class.bg-green-400]="workout.completed">
           <td class="py-3 px-4">{{ workout.name }}</td>
           <td class="py-3 px-4">{{ workout.displayTypes }}</td>
           <td class="py-3 px-4">{{ workout.workouts.length }}</td>
           <td class="py-3 px-4">{{ workout.displayMinutes }}</td>
+          <td class="py-3 px-4">
+            <div class="flex">
+            <button (click)="toggleCompletion(workout.name)"
+              class="text-xs px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 mr-2">
+              Complete
+            </button>
+            <button (click)="deleteUser(workout.name)"
+              class="text-xs px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200">
+              Delete </button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -35,7 +47,7 @@
     </div>
   </div>
 
-  <!--  Chart Button -->
+  <!-- Chart Button -->
   <button (click)="openModal()"
     class="mt-6 px-5 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
     Show Chart
